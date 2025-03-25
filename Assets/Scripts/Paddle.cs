@@ -1,30 +1,34 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour
 {
-    private float Speed = 10;
+    private List<int> horizontalInputStack = new();
+    private int horizontalDir;
+    private float speed = 5;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private static readonly Dictionary<KeyCode, int> horizontalInputs = new Dictionary<KeyCode, int> {
+        {KeyCode.A, -1},
+        {KeyCode.D, 1}
+    };
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 position = transform.position;
+        UpdateInputStack(horizontalInputStack, horizontalInputs);
+        horizontalDir = horizontalInputStack.LastOrDefault();
+        transform.position += new Vector3(horizontalDir, 0, 0) * speed * Time.deltaTime;
+    }
 
-        if (Input.GetKey(KeyCode.LeftArrow)) 
-        {
-            position.x -= Speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.RightArrow)) 
-        {
-            position.x += Speed * Time.deltaTime;
-        }
-
-        transform.position = position;        
+    // Actualiza el orden de los inputs
+    private void UpdateInputStack(List<int> stack, Dictionary<KeyCode, int> inputs)
+    {
+        foreach (KeyValuePair<KeyCode, int> input in inputs)
+            if (Input.GetKeyDown(input.Key) && !stack.Contains(input.Value))
+                stack.Add(input.Value);
+            else if (Input.GetKeyUp(input.Key))
+                stack.Remove(input.Value);
     }
 }
