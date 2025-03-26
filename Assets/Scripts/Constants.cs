@@ -18,6 +18,7 @@ internal class Constants : MonoBehaviour
 
 
     [SerializeField] public float PaddleSpeed;
+    [SerializeField] public float BallSpeed;
 
     //public const float PADDLE_SPEED = 8;
 }

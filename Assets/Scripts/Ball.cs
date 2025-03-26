@@ -1,16 +1,22 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
 
+    private float Speed 
+    {
+        get => Constants.Instance.BallSpeed;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.linearVelocity = new Vector2(10,10);
+        _rigidbody.linearVelocity = new Vector2(10,10).normalized * Speed;
     }
 
     // Update is called once per frame
@@ -36,20 +42,39 @@ public class Ball : MonoBehaviour
         {
             float xPaddle = collider.transform.position.x;
             float xBall = transform.position.x;
-            float bounceSpeed = 15;
+            float bounceSpeed = Speed;
             velocity.x = (xBall - xPaddle) * bounceSpeed;
             velocity.y = -velocity.y;
         }
         else if (collider.GetComponent<Block>() != null) 
         {
-            CollideWithBlock(collider.GetComponent<Block>());
+            velocity = CollideWithBlock(collider);
         }        
+        else if (colliderName == "FailBox") 
+        {
+            Lose();
+        }
+
         _rigidbody.linearVelocity = velocity;
     }
 
-    private void CollideWithBlock(Block block)
+    private void Lose()
     {
-        Vector2 velocity = _rigidbody.linearVelocity;        
+        SceneManager.LoadScene("Main");
+    }
+
+
+    private Vector3 CollideWithBlock(Collider2D block)
+    {
+        Vector3 velocity = _rigidbody.linearVelocity;
+
+        float xBall = transform.position.x;
+        float xBlock = block.transform.position.x;
+        float bounceSpeed = Speed;
+        velocity.x = (xBall - xBlock) * bounceSpeed;
+        velocity.y = -velocity.y;
         _rigidbody.linearVelocity = velocity;
+
+        return velocity;
     }
 }
