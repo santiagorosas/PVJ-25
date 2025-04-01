@@ -1,25 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
+
 
 public class Paddle : MonoBehaviour
-{    
-    private List<int> horizontalInputStack = new();
-    private int horizontalDir;
+{
+    private static readonly Dictionary<string, int> _directionsByInputActionName = new Dictionary<string, int> {
+        {"MoveLeft", -1},
+        {"MoveRight", 1}
+    };
+    private List<int> _horizontalInputs = new();
+    private int _horizontalDirection;
 
     private Wall LeftWall;
     private Wall RightWall;
 
-    /*
-    [SerializeField] private Wall LeftWall;
-    [SerializeField] private Wall RightWall;
-    */
-
-
+    
     private float Speed 
     {
         get 
@@ -40,27 +38,18 @@ public class Paddle : MonoBehaviour
     public float HalfWidth { get => GetComponent<BoxCollider2D>().size.x * transform.localScale.x / 2; }
 
     private void Start()
-    {        
+    {
         LeftWall = GameObject.Find("LeftWall").GetComponent<Wall>();
         RightWall = GameObject.Find("RightWall").GetComponent<Wall>();
     }    
 
-    private static readonly Dictionary<KeyCode, int> horizontalInputs = new Dictionary<KeyCode, int> {
-        {KeyCode.A, -1},
-        {KeyCode.D, 1}
-    };
-
     void Update()
     {
-        UpdateInputStack(horizontalInputStack, horizontalInputs);
-        horizontalDir = horizontalInputStack.LastOrDefault();
+        UpdateInputStack();
+        _horizontalDirection = _horizontalInputs.LastOrDefault();
 
-        float newX = transform.position.x + horizontalDir * Speed * Time.deltaTime;                
+        float newX = transform.position.x + _horizontalDirection * Speed * Time.deltaTime;                
         newX = Mathf.Clamp(newX, LeftWallRightEdgeX + HalfWidth, RightWallLeftEdgeX - HalfWidth);
-
-        Debug.Log("new X: " + newX);
-        Debug.Log("LeftWallRightEdgeX: " + LeftWallRightEdgeX);
-        Debug.Log("HalfWidth: " + HalfWidth);
 
         Vector3 position = transform.position;
         position.x = newX;
@@ -68,12 +57,23 @@ public class Paddle : MonoBehaviour
     }
 
     // Actualiza el orden de los inputs
-    private void UpdateInputStack(List<int> stack, Dictionary<KeyCode, int> inputs)
-    {    
-        foreach (KeyValuePair<KeyCode, int> input in inputs)
-            if (Input.GetKeyDown(input.Key) && !stack.Contains(input.Value))
-                stack.Add(input.Value);
-            else if (Input.GetKeyUp(input.Key))
-                stack.Remove(input.Value);
+    private void UpdateInputStack()
+    {
+        foreach (KeyValuePair<string, int> kv in _directionsByInputActionName)
+        {
+            string inputActionName = kv.Key;
+            int direction = kv.Value;
+
+            InputAction inputAction = InputSystem.actions.FindAction(inputActionName);
+
+            if (inputAction.WasPressedThisFrame() && !_horizontalInputs.Contains(direction))
+            {
+                _horizontalInputs.Add(direction);
+            }   
+            else if (inputAction.WasReleasedThisFrame())
+            {
+                _horizontalInputs.Remove(direction);
+            }       
+        }
     }
 }
