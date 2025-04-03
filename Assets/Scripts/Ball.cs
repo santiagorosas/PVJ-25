@@ -45,6 +45,7 @@ public class Ball : MonoBehaviour
             float bounceSpeed = Speed;
             velocity.x = (xBall - xPaddle) * bounceSpeed;
             velocity.y = -velocity.y;
+            SoundManager.PlaySound(SoundManager.instance.paddleHit);
         }
         else if (collider.GetComponent<Block>() != null) 
         {
@@ -75,6 +76,9 @@ public class Ball : MonoBehaviour
         velocity.y = -velocity.y;
         _rigidbody.linearVelocity = velocity;
 
+        SoundManager.PlaySound(SoundManager.instance.blockHit);
+
         return velocity;
     }
+
 }
