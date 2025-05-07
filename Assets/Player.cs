@@ -29,6 +29,16 @@ abstract public class Player : MonoBehaviour
         _isGrounded = false;        
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _isGrounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        _isGrounded = false;
+    }
+
     protected bool IsGrounded 
     {
         get 
