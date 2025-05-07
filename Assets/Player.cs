@@ -76,11 +76,9 @@ abstract public class Player : MonoBehaviour
     }
         
     public void OnJumpInput() 
-    {
-        Debug.Log("1");
+    {        
         if (IsGrounded)
-        {
-            Debug.Log("2");
+        {            
             Jump();
         }
     }
