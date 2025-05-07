@@ -7,9 +7,9 @@ abstract public class Player : MonoBehaviour
     private PlayerInput _input;
     private InputAction _moveAction;
     private Rigidbody2D _rigidbody;
+    private bool _isGrounded;
     
-    
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _groundLayerMask;
 
     private float WalkSpeed { get => 10; }
     protected float JumpSpeed { get => 20; }
@@ -19,19 +19,34 @@ abstract public class Player : MonoBehaviour
     abstract protected void SetVelocityX(float movementX);
     abstract protected void Jump();
 
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {        
+        _isGrounded = true;        
+    }
+
+    private void OnTriggerExit2D(Collider2D otherCollider)
+    {        
+        _isGrounded = false;        
+    }
+
     protected bool IsGrounded 
     {
         get 
-        {            
-            RaycastHit2D raycastHit = Physics2D.Raycast(
-                origin: transform.position, 
-                direction: Vector2.down, 
-                distance: 4,
-                layerMask: _groundLayer
-                );
-            
-            return raycastHit.collider != null;
+        {
+            return _isGrounded;            
         }
+    }
+
+    private bool RaycastGround()
+    {
+        RaycastHit2D raycastHit = Physics2D.Raycast(
+                origin: (Vector2)transform.position + GetComponent<Collider2D>().offset,
+                direction: Vector2.down,
+                distance: 1,
+                layerMask: _groundLayerMask
+                );
+
+        return raycastHit.collider != null;
     }
     
     virtual protected void Start()
@@ -51,9 +66,11 @@ abstract public class Player : MonoBehaviour
     }
         
     public void OnJumpInput() 
-    {        
+    {
+        Debug.Log("1");
         if (IsGrounded)
         {
+            Debug.Log("2");
             Jump();
         }
     }
@@ -61,5 +78,10 @@ abstract public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(new Ray(origin: transform.position, direction: Vector3.down));
+    }
+
+    bool IsLayerInMask(int layer, LayerMask mask)
+    {
+        return (mask.value & (1 << layer)) != 0;
     }
 }

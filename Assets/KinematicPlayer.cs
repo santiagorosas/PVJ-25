@@ -23,7 +23,7 @@ public class KinematicPlayer: Player
 
     protected override void Jump()
     {
-        
+        _velocity.y = JumpSpeed;
     }
 
     protected override void FixedUpdate()
@@ -34,16 +34,17 @@ public class KinematicPlayer: Player
 
     private void UpdatePhysics()
     {                
-        if (IsGrounded)
+        if (IsGrounded && _velocity.y < 0)
         {
-            // Si estoy sobre el suelo no me muevo verticalmente
+            // Si estoy sobre el suelo reseteo la velocidad vertical
             _velocity.y = 0;
         }
-        else
+        
+        if (!IsGrounded)
         {
-            // Si estoy en el aire, aplico la aceleración de la gravedad a la velocidad vertical
+            // Si estoy en el aire aplico la gravedad a la velocidad vertical
             _velocity.y += Gravity * Time.deltaTime;
-        }
+        }        
 
         // Aplico la velocidad a la posición
         Vector3 position = transform.position;
