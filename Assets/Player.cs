@@ -9,7 +9,7 @@ abstract public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private bool _isGrounded;
     
-    [SerializeField] private LayerMask _groundLayerMask;
+    //[SerializeField] private LayerMask _groundLayerMask;
 
     private float WalkSpeed { get => 10; }
     protected float JumpSpeed { get => 20; }
@@ -47,6 +47,7 @@ abstract public class Player : MonoBehaviour
         }
     }
 
+    /*
     private bool RaycastGround()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(
@@ -58,6 +59,7 @@ abstract public class Player : MonoBehaviour
 
         return raycastHit.collider != null;
     }
+    */
     
     virtual protected void Start()
     {
