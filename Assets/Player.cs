@@ -19,7 +19,7 @@ abstract public class Player : MonoBehaviour
     abstract protected void SetVelocityX(float movementX);
     abstract protected void Jump();
 
-    private bool IsGrounded 
+    protected bool IsGrounded 
     {
         get 
         {            
