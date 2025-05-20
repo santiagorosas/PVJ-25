@@ -16,7 +16,9 @@ public class StickyLookahead2D : MonoBehaviour
     {
         // Update facing only if we're really moving
         if (Mathf.Abs(playerRb.linearVelocity.x) > minSpeed)
+        {
             _facing = playerRb.linearVelocity.x > 0 ? 1 : -1;
+        }
 
         var p = playerRb.position;
         cameraFocus.position =
