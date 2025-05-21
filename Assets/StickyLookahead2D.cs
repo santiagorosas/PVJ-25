@@ -14,6 +14,8 @@ public class StickyLookahead2D : MonoBehaviour
 
     void LateUpdate()
     {
+        Debug.Log("uso");
+
         // Update facing only if we're really moving
         if (Mathf.Abs(playerRb.linearVelocity.x) > minSpeed)
         {
