@@ -41,11 +41,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 5011673
+  - name: Background1
+    uniqueID: 787645841
     locked: 0
-  - name: Paddle
-    uniqueID: 3781026631
+  - name: Background2
+    uniqueID: 253135953
+    locked: 0
+  - name: Background3
+    uniqueID: 2598584651
+    locked: 0
+  - name: Tilemap
+    uniqueID: 1311126629
+    locked: 0
+  - name: Player
+    uniqueID: 3821851949
     locked: 0
   m_RenderingLayers:
   - Default
