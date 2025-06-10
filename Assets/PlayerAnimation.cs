@@ -14,6 +14,14 @@ public class PlayerAnimation : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
+    public bool IsAttacking 
+    { 
+        get
+        {
+            return _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
+        } 
+    }
+
     void Start()
     {
         
@@ -31,14 +39,15 @@ public class PlayerAnimation : MonoBehaviour
         _animator.SetTrigger("Walk");
         //SetAnimation(Animation.Walk);
     }
+    */
 
     public void SetAttack()
     {
-        SetAnimation(Animation.Attack);
+        _animator.SetTrigger("Attack");
+        Debug.Log("set attack");
     }
-    */
 
-    public void SetAnimation(Animation animation)
+    private void SetAnimation(Animation animation)
     {
         _animator.Play(stateName: animation.ToString());
     }

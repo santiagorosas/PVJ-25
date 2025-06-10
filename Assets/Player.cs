@@ -47,7 +47,15 @@ abstract public class Player : MonoBehaviour
             return _isGrounded;            
         }
     }
-    
+
+    public bool IsAttacking 
+    { 
+        get
+        {
+            return _animation.IsAttacking;
+        } 
+    }
+
     virtual protected void Start()
     {
         _input = GetComponent<PlayerInput>();
@@ -60,11 +68,20 @@ abstract public class Player : MonoBehaviour
 
     virtual protected void FixedUpdate()
     {
+        if (!IsAttacking)
+        {
+            UpdateVelocityX();   
+        }
+        
+        UpdateAnimation();
+        UpdateFlipX();
+    }
+
+    private void UpdateVelocityX()
+    {
         float inputX = _moveAction.ReadValue<Vector2>().x;
         float movementX = inputX * WalkSpeed;
         SetVelocityX(movementX);
-        UpdateAnimation();
-        UpdateFlipX();
     }
 
     private void UpdateFlipX()
@@ -84,7 +101,7 @@ abstract public class Player : MonoBehaviour
     private void UpdateAnimation()
     {
         _animation.SetAbsoluteSpeedX(Mathf.Abs(_rigidbody.linearVelocityX));
-        
+
         if (_rigidbody.linearVelocityY != 0)
         {
             _animation.SetJump();
@@ -92,7 +109,7 @@ abstract public class Player : MonoBehaviour
         else
         {
             _animation.ExitJump();
-        }
+        }      
     }
 
     public void OnJumpInput() 
@@ -101,6 +118,20 @@ abstract public class Player : MonoBehaviour
         {            
             Jump();
         }
+    }
+
+    public void OnAttackInput()
+    {
+        Debug.Log("attack");
+        if (IsGrounded && !IsAttacking)
+        {
+            Attack();
+        }
+    }
+
+    private void Attack()
+    {
+        _animation.SetAttack();
     }
 
     bool IsLayerInMask(int layer, LayerMask mask)
