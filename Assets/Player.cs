@@ -56,7 +56,6 @@ abstract public class Player : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 
         _animation = GetComponent<PlayerAnimation>();
-        _animation.SetIdle();
     }
 
     virtual protected void FixedUpdate()
@@ -84,20 +83,15 @@ abstract public class Player : MonoBehaviour
 
     private void UpdateAnimation()
     {
+        _animation.SetAbsoluteSpeedX(Mathf.Abs(_rigidbody.linearVelocityX));
+        
         if (_rigidbody.linearVelocityY != 0)
         {
-            // Velocidad vertical no es nula, o sea que estoy saltando
             _animation.SetJump();
-        }
-        else if (_rigidbody.linearVelocityX != 0)
-        {
-            // Velocidad vertical es nula pero velocidad horizontal no es nula, o sea que estoy caminando
-            _animation.SetWalk();
         }
         else
         {
-            // Velocidades horizontal y vertical son nulas, o sea que estoy idle
-            _animation.SetIdle();
+            _animation.ExitJump();
         }
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography;
 using UnityEngine;
 
@@ -18,14 +19,38 @@ public class PlayerAnimation : MonoBehaviour
         
     }
 
+    /*
     public void SetIdle()
     {
-        SetAnimation(Animation.Idle);
+        _animator.SetTrigger("Stay");
+        //SetAnimation(Animation.Idle);
     }
 
     public void SetWalk()
     {
-        SetAnimation(Animation.Walk);
+        _animator.SetTrigger("Walk");
+        //SetAnimation(Animation.Walk);
+    }
+
+    public void SetAttack()
+    {
+        SetAnimation(Animation.Attack);
+    }
+    */
+
+    public void SetAnimation(Animation animation)
+    {
+        _animator.Play(stateName: animation.ToString());
+    }
+    
+    public void SetAbsoluteSpeedX(float absoluteSpeedX)
+    {
+        _animator.SetFloat("xSpeed", absoluteSpeedX);
+    }
+
+    internal void SetSpeedY(float speedY)
+    {
+        _animator.SetFloat("ySpeed", speedY);
     }
 
     public void SetJump()
@@ -33,13 +58,8 @@ public class PlayerAnimation : MonoBehaviour
         SetAnimation(Animation.Jump);
     }
 
-    public void SetAttack()
+    internal void ExitJump()
     {
-        SetAnimation(Animation.Attack);
-    }
-
-    public void SetAnimation(Animation animation)
-    {
-        _animator.Play(stateName: animation.ToString());
+        _animator.SetTrigger("ExitJump");
     }
 }
