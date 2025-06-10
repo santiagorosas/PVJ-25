@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pepe-unrigged-texture_0: 3959493040526565834
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
