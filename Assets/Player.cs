@@ -8,6 +8,7 @@ abstract public class Player : MonoBehaviour
     private InputAction _moveAction;
     private Rigidbody2D _rigidbody;
     private bool _isGrounded;
+    private PlayerAnimation _animation;
     
     //[SerializeField] private LayerMask _groundLayerMask;
 
@@ -46,20 +47,6 @@ abstract public class Player : MonoBehaviour
             return _isGrounded;            
         }
     }
-
-    /*
-    private bool RaycastGround()
-    {
-        RaycastHit2D raycastHit = Physics2D.Raycast(
-                origin: (Vector2)transform.position + GetComponent<Collider2D>().offset,
-                direction: Vector2.down,
-                distance: 1,
-                layerMask: _groundLayerMask
-                );
-
-        return raycastHit.collider != null;
-    }
-    */
     
     virtual protected void Start()
     {
@@ -67,27 +54,59 @@ abstract public class Player : MonoBehaviour
         _moveAction = _input.actions["Move"];
 
         _rigidbody = GetComponent<Rigidbody2D>();
-    }
 
+        _animation = GetComponent<PlayerAnimation>();
+        _animation.SetIdle();
+    }
 
     virtual protected void FixedUpdate()
     {
         float inputX = _moveAction.ReadValue<Vector2>().x;
         float movementX = inputX * WalkSpeed;
         SetVelocityX(movementX);
+        UpdateAnimation();
+        UpdateFlipX();
     }
-        
+
+    private void UpdateFlipX()
+    {
+        Vector3 scale = transform.localScale;
+        if (_rigidbody.linearVelocityX < 0)
+        {
+            scale.x = -1;
+        }
+        else if (_rigidbody.linearVelocityX > 0)
+        {
+            scale.x = 1;
+        }
+        transform.localScale = scale;
+    }
+
+    private void UpdateAnimation()
+    {
+        if (_rigidbody.linearVelocityY != 0)
+        {
+            // Velocidad vertical no es nula, o sea que estoy saltando
+            _animation.SetJump();
+        }
+        else if (_rigidbody.linearVelocityX != 0)
+        {
+            // Velocidad vertical es nula pero velocidad horizontal no es nula, o sea que estoy caminando
+            _animation.SetWalk();
+        }
+        else
+        {
+            // Velocidades horizontal y vertical son nulas, o sea que estoy idle
+            _animation.SetIdle();
+        }
+    }
+
     public void OnJumpInput() 
     {        
         if (IsGrounded)
         {            
             Jump();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawRay(new Ray(origin: transform.position, direction: Vector3.down));
     }
 
     bool IsLayerInMask(int layer, LayerMask mask)

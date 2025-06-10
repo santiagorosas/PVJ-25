@@ -18,6 +18,26 @@ public class PlayerAnimation : MonoBehaviour
         
     }
 
+    public void SetIdle()
+    {
+        SetAnimation(Animation.Idle);
+    }
+
+    public void SetWalk()
+    {
+        SetAnimation(Animation.Walk);
+    }
+
+    public void SetJump()
+    {
+        SetAnimation(Animation.Jump);
+    }
+
+    public void SetAttack()
+    {
+        SetAnimation(Animation.Attack);
+    }
+
     public void SetAnimation(Animation animation)
     {
         _animator.Play(stateName: animation.ToString());
