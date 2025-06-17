@@ -56,5 +56,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Explosions
+    uniqueID: 2287466229
+    locked: 0
   m_RenderingLayers:
   - Default

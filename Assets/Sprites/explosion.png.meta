@@ -1,16 +1,64 @@
 fileFormatVersion: 2
-guid: 5269efeb22ed8e141a72df1f7e55a876
+guid: 540196f79d9fb32489b44f36ef4a3b3e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3830812198547356683
-    second: AttackWave_0
+      213: -8092295105046505211
+    second: explosion_0
   - first:
-      213: 5798768452144707056
-    second: AttackWave_1
+      213: -5243772346084840235
+    second: explosion_1
   - first:
-      213: 9206573500186659255
-    second: AttackWave_2
+      213: -4009157606203222040
+    second: explosion_2
+  - first:
+      213: 3730887761424324059
+    second: explosion_3
+  - first:
+      213: -4927540249515241657
+    second: explosion_4
+  - first:
+      213: 5684552838703836615
+    second: explosion_5
+  - first:
+      213: -1000500801407918923
+    second: explosion_6
+  - first:
+      213: -3556220708966662747
+    second: explosion_7
+  - first:
+      213: 950242065716622878
+    second: explosion_8
+  - first:
+      213: 1871906383385562927
+    second: explosion_9
+  - first:
+      213: -5371098934410574880
+    second: explosion_10
+  - first:
+      213: -1551774312519300948
+    second: explosion_11
+  - first:
+      213: 8761117149865828687
+    second: explosion_12
+  - first:
+      213: 2349602722129606322
+    second: explosion_13
+  - first:
+      213: 7773491377804077996
+    second: explosion_14
+  - first:
+      213: 1467323325375670837
+    second: explosion_15
+  - first:
+      213: 4542189021846940948
+    second: explosion_16
+  - first:
+      213: -8590846737339631838
+    second: explosion_17
+  - first:
+      213: 3996794502770762282
+    second: explosion_18
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -30,7 +78,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -52,7 +100,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -119,67 +167,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AttackWave_0
+      name: explosion_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 228
-        height: 330
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b0cf5a7e567c92530800000000000000
-      internalID: 3830812198547356683
+      spriteID: afc5a1b04f0207044a030068bdf583f5
+      internalID: 1731955705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AttackWave_1
+      name: explosion_1
       rect:
         serializedVersion: 2
-        x: 163
-        y: 319
-        width: 14
-        height: 13
+        x: 48
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0f5b3dc1f2d597050800000000000000
-      internalID: 5798768452144707056
+      spriteID: b01367a757caa4c45861673e6bc4daa5
+      internalID: -1398127491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AttackWave_2
+      name: explosion_2
       rect:
         serializedVersion: 2
-        x: 107
-        y: 2
-        width: 51
-        height: 52
+        x: 96
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7b98625e1d154cf70800000000000000
-      internalID: 9206573500186659255
+      spriteID: aab8f7887690b674a8d20302b1fa3918
+      internalID: -42481388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa8ecf7edc6828a40992a19c21ff2adc
+      internalID: 1783284357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f7edcb1cccb1b444bfcfd281614e835
+      internalID: -334511929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c9b4d9f3c00f745961d6d9cbaaf4c9
+      internalID: -1600717734
       vertices: []
       indices: 
       edges: []
@@ -188,7 +302,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 5e1953287a42eae49bd995921631ac8e
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +312,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AttackWave_0: 3830812198547356683
-      AttackWave_1: 5798768452144707056
-      AttackWave_2: 9206573500186659255
+      explosion_0: 1731955705
+      explosion_1: -1398127491
+      explosion_2: -42481388
+      explosion_3: 1783284357
+      explosion_4: -334511929
+      explosion_5: -1600717734
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
