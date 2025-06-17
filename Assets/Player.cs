@@ -26,24 +26,27 @@ abstract public class Player : MonoBehaviour
     abstract protected void SetVelocityX(float movementX);
     abstract protected void Jump();
 
-    private void OnTriggerEnter2D(Collider2D otherCollider)
-    {        
-        _isGrounded = true;        
-    }
-
-    private void OnTriggerExit2D(Collider2D otherCollider)
-    {        
-        _isGrounded = false;        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _isGrounded = true;
+        if (IsCollisionGround(collision))
+        {
+            Debug.Log("collision enter " + collision.gameObject.name);
+            _isGrounded = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        _isGrounded = false;
+        if (IsCollisionGround(collision))
+        {
+            Debug.Log("collision exit " + collision.gameObject.name);
+            _isGrounded = false;
+        }
+    }
+
+    private bool IsCollisionGround(Collision2D collision)
+    {
+        return collision.gameObject.tag == "Ground";
     }
 
     protected bool IsGrounded 
@@ -138,7 +141,7 @@ abstract public class Player : MonoBehaviour
     }
 
     public void OnJumpInput() 
-    {        
+    {
         if (IsGrounded)
         {            
             Jump();
