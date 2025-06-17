@@ -96,7 +96,7 @@ abstract public class Player : MonoBehaviour
         }
         else
         {
-            _animation.EndAttack();
+            //_animation.EndAttack();
         }
 
         _timeSinceLastAttack += Time.deltaTime;

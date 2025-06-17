@@ -43,7 +43,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetAttack()
     {
-        _animator.SetBool("IsAttacking", true);
+        _animator.SetTrigger("Attack");
     }
 
     private void SetAnimation(Animation animation)
