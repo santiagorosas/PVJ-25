@@ -122,9 +122,9 @@ abstract public class Player : MonoBehaviour
 
     public void OnAttackInput()
     {
-        Debug.Log("attack");
-        if (IsGrounded && !IsAttacking && _rigidbody.linearVelocityX == 0)
+        if (!IsAttacking)
         {
+            Debug.Log("attack");
             Attack();
         }
     }
