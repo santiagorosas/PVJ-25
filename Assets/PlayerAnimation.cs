@@ -75,4 +75,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator.SetBool("IsAttacking", false);
     }
+
+    internal void SetIsWalking(bool isWalking)
+    {
+        _animator.SetBool("IsWalking", isWalking);
+    }
 }

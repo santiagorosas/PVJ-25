@@ -137,7 +137,16 @@ abstract public class Player : MonoBehaviour
         else
         {
             _animation.ExitJump();
-        }      
+        }
+        
+        if (_rigidbody.linearVelocityY == 0 && _rigidbody.linearVelocityX != 0)
+        {
+            _animation.SetIsWalking(true);
+        }
+        else
+        {
+            _animation.SetIsWalking(false);
+        }
     }
 
     public void OnJumpInput() 
