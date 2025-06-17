@@ -10,11 +10,16 @@ abstract public class Player : MonoBehaviour
     private bool _isGrounded;
     private PlayerAnimation _animation;
     private PlayerAttackWave _attackWave;
-    
+    private float _timeSinceLastAttack = ATTACK_COOLDOWN;
+
     //[SerializeField] private LayerMask _groundLayerMask;
 
     private float WalkSpeed { get => 10; }
     protected float JumpSpeed { get => 20; }
+
+    protected const float ATTACK_COOLDOWN = 0.5f;
+    
+    private bool CanAttack { get => _timeSinceLastAttack >= ATTACK_COOLDOWN; }
 
     protected Rigidbody2D Rigidbody { get => _rigidbody; }
 
@@ -85,22 +90,16 @@ abstract public class Player : MonoBehaviour
 
     private void UpdateAttack()
     {
-        if (_input.actions["Attack"].IsPressed())
+        if (_input.actions["Attack"].IsPressed() && CanAttack)
         {
-            if (!_animation.IsAttacking)
-            {
-                Attack();
-            }
+            Attack();
         }
         else
         {
-            EndAttack();
+            _animation.EndAttack();
         }
-    }
 
-    private void EndAttack()
-    {
-        _animation.EndAttack();
+        _timeSinceLastAttack += Time.deltaTime;
     }
 
     private void UpdateVelocityX()
@@ -150,6 +149,7 @@ abstract public class Player : MonoBehaviour
     {
         _animation.SetAttack();
         _attackWave.Attack();
+        _timeSinceLastAttack = 0;
     }
 
     bool IsLayerInMask(int layer, LayerMask mask)
