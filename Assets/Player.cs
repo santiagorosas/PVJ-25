@@ -123,7 +123,7 @@ abstract public class Player : MonoBehaviour
     public void OnAttackInput()
     {
         Debug.Log("attack");
-        if (IsGrounded && !IsAttacking)
+        if (IsGrounded && !IsAttacking && _rigidbody.linearVelocityX == 0)
         {
             Attack();
         }

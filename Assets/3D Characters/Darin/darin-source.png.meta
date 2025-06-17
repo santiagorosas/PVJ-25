@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      darin-source_0: 4762245335396261300
+      darin-source_1: -6818087010145960090
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
