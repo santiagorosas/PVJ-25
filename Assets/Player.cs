@@ -9,6 +9,7 @@ abstract public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private bool _isGrounded;
     private PlayerAnimation _animation;
+    private PlayerAttackWave _attackWave;
     
     //[SerializeField] private LayerMask _groundLayerMask;
 
@@ -64,17 +65,42 @@ abstract public class Player : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
 
         _animation = GetComponent<PlayerAnimation>();
+
+        _attackWave = GetComponentInChildren<PlayerAttackWave>();
+        _attackWave.gameObject.SetActive(false);
+
+        if (_attackWave == null)
+        {
+            throw new UnityException("no attack wave");
+        }
     }
 
     virtual protected void FixedUpdate()
     {
-        if (!IsAttacking)
-        {
-            UpdateVelocityX();   
-        }
-        
+        UpdateVelocityX();   
         UpdateAnimation();
         UpdateFlipX();
+        UpdateAttack();
+    }
+
+    private void UpdateAttack()
+    {
+        if (_input.actions["Attack"].IsPressed())
+        {
+            if (!_animation.IsAttacking)
+            {
+                Attack();
+            }
+        }
+        else
+        {
+            EndAttack();
+        }
+    }
+
+    private void EndAttack()
+    {
+        _animation.EndAttack();
     }
 
     private void UpdateVelocityX()
@@ -120,18 +146,10 @@ abstract public class Player : MonoBehaviour
         }
     }
 
-    public void OnAttackInput()
-    {
-        if (!IsAttacking)
-        {
-            Debug.Log("attack");
-            Attack();
-        }
-    }
-
     private void Attack()
     {
         _animation.SetAttack();
+        _attackWave.Attack();
     }
 
     bool IsLayerInMask(int layer, LayerMask mask)

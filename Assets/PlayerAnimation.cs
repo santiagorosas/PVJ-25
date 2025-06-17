@@ -43,8 +43,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetAttack()
     {
-        _animator.SetTrigger("Attack");
-        Debug.Log("set attack");
+        _animator.SetBool("IsAttacking", true);
     }
 
     private void SetAnimation(Animation animation)
@@ -70,5 +69,10 @@ public class PlayerAnimation : MonoBehaviour
     internal void ExitJump()
     {
         _animator.SetTrigger("ExitJump");
+    }
+
+    internal void EndAttack()
+    {
+        _animator.SetBool("IsAttacking", false);
     }
 }
